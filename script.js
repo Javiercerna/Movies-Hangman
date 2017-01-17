@@ -9,7 +9,7 @@ var hangman = {
 
     while (true)
     {
-      letter_index = string.toLowerCase().indexOf(letter,letter_index+1);
+      letter_index = string.toUpperCase().indexOf(letter,letter_index+1);
       if (letter_index == -1)
       {
         break;
@@ -72,4 +72,11 @@ var hangman = {
   }
 }.generateMovieTitle();
 
-debugger;
+window.addEventListener('keyup',function(event) {
+  var key_pressed = event.key.toUpperCase();
+  if (key_pressed >= 'A' && key_pressed <= 'Z' && key_pressed.length === 1)
+  {
+    console.log(key_pressed);
+    hangman.makeGuess(key_pressed);
+  }
+});
