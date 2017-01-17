@@ -57,11 +57,13 @@ var hangman = {
   {
     if (this.isMovieTitleComplete(this.guessed_title))
     {
+      window.removeEventListener('keyup',handler.keyUpListener);
       console.log('You won!');
     }
 
     if (this.lives == 0)
     {
+      window.removeEventListener('keyup',handler.keyUpListener);
       console.log('Game over!');
     }
   },
@@ -72,11 +74,14 @@ var hangman = {
   }
 }.generateMovieTitle();
 
-window.addEventListener('keyup',function(event) {
-  var key_pressed = event.key.toUpperCase();
-  if (key_pressed >= 'A' && key_pressed <= 'Z' && key_pressed.length === 1)
-  {
-    console.log(key_pressed);
-    hangman.makeGuess(key_pressed);
+var handler = {
+  keyUpListener: function(event) {
+    var key_pressed = event.key.toUpperCase();
+    if (key_pressed >= 'A' && key_pressed <= 'Z' && key_pressed.length === 1)
+    {
+      hangman.makeGuess(key_pressed);
+    }
   }
-});
+};
+
+window.addEventListener('keyup',handler.keyUpListener);
