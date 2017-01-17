@@ -4,11 +4,20 @@ var hangman = {
   movie_title: '',
   guessed_title: '',
   findLetterIndexes: function(letter,string) {
-    if (string.toLowerCase().indexOf(letter) == -1)
+    var letter_indexes = [];
+    var letter_index = -1;
+
+    while (true)
     {
-      return [];
+      letter_index = string.toLowerCase().indexOf(letter,letter_index+1);
+      if (letter_index == -1)
+      {
+        break;
+      }
+      letter_indexes.push(letter_index);
     }
-    return [string.toLowerCase().indexOf(letter)];
+
+    return letter_indexes;
   },
   makeGuess: function(letter) {
     if (this.used_letters.indexOf(letter) != -1)
