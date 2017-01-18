@@ -92,8 +92,8 @@ var view = {
     guessed_title.textContent = hangman.guessed_title;
   },
   showUsedLetters: function() {
-    var used_letters = document.querySelector('.used-letters p');
-    used_letters.textContent = 'Used letters: ';
+    var used_letters = document.querySelector('.used-letters span');
+    used_letters.textContent = '';
     hangman.used_letters.forEach(function(letter) {
       used_letters.textContent += letter + ' ';
     });
@@ -103,12 +103,14 @@ var view = {
     var game_end_title = document.createElement('h1');
     if (hangman.checkGameEnd() == WIN)
     {
-      game_end_title.textContent = 'You won!';
+      game_end_title.textContent = 'You won! :)';
+      game_end_title.style = 'color:blue';
       container.appendChild(game_end_title);
     }
     else if (hangman.checkGameEnd() == LOSE)
     {
-      game_end_title.textContent = 'You lost!';
+      game_end_title.textContent = 'You lost! :(';
+      game_end_title.style = 'color:red';
       container.appendChild(game_end_title);
     }
   }

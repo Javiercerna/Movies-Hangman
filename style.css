@@ -1,9 +1,11 @@
 body {
   background-color: #CCC;
+  font-family: 'Indie Flower', cursive;
 }
 
 .container {
   padding: 50px;
+  text-align: center;
 }
 
 .container div {
@@ -17,6 +19,18 @@ body {
 
 .used-letters {
   display: inline-block;
+  vertical-align: top;
+  max-width: 425px;
+}
+
+.used-letters p {
+  font-size: 5rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.used-letters span {
+  font-size: 2.5rem;
 }
 
 .hangman-guessed {
