@@ -1,0 +1,25 @@
+body {
+  background-color: #CCC;
+}
+
+.container {
+  padding: 50px;
+}
+
+.container div {
+  padding: 20px;
+}
+
+.hangman-drawing {
+  min-width: 500px;
+  display: inline-block;
+}
+
+.used-letters {
+  display: inline-block;
+}
+
+.hangman-guessed {
+  font-size: 3rem;
+  text-transform: uppercase;
+}

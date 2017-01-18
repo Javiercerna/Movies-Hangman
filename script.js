@@ -1,3 +1,6 @@
+const WIN = 1;
+const LOSE = 0;
+
 var hangman = {
   lives: 12,
   used_letters: [],
@@ -41,7 +44,6 @@ var hangman = {
 
     this.checkGameEnd();
     this.used_letters.push(letter);
-    console.log('Guessed Title: ' + this.guessed_title);
   },
   revealLetter: function(letter,letter_indexes) {
     var temp_title_array = this.guessed_title.split('');
@@ -58,14 +60,16 @@ var hangman = {
     if (this.isMovieTitleComplete(this.guessed_title))
     {
       window.removeEventListener('keyup',handler.keyUpListener);
-      console.log('You won!');
+      return WIN;
     }
 
     if (this.lives == 0)
     {
       window.removeEventListener('keyup',handler.keyUpListener);
-      console.log('Game over!');
+      return LOSE;
     }
+
+    return -1;
   },
   generateMovieTitle: function() {
     this.movie_title = 'Spectral';
@@ -80,6 +84,37 @@ var handler = {
     if (key_pressed >= 'A' && key_pressed <= 'Z' && key_pressed.length === 1)
     {
       hangman.makeGuess(key_pressed);
+      view.updateGuessedTitle();
+      view.showUsedLetters();
+      view.showGameEnd();
+    }
+  }
+};
+
+var view = {
+  updateGuessedTitle: function() {
+    var guessed_title = document.querySelector('.hangman-guessed p');
+    guessed_title.textContent = hangman.guessed_title;
+  },
+  showUsedLetters: function() {
+    var used_letters = document.querySelector('.used-letters p');
+    used_letters.textContent = 'Used letters: ';
+    hangman.used_letters.forEach(function(letter) {
+      used_letters.textContent += letter + ' ';
+    });
+  },
+  showGameEnd: function() {
+    var container = document.querySelector('.container');
+    var game_end_title = document.createElement('h1');
+    if (hangman.checkGameEnd() == WIN)
+    {
+      game_end_title.textContent = 'You won!';
+      container.appendChild(game_end_title);
+    }
+    else if (hangman.checkGameEnd() == LOSE)
+    {
+      game_end_title.textContent = 'You lost!';
+      container.appendChild(game_end_title);
     }
   }
 };
