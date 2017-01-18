@@ -25,21 +25,17 @@ var hangman = {
   makeGuess: function(letter) {
     if (this.used_letters.indexOf(letter) != -1)
     {
-      console.log('Letter already tried');
-      console.log('Guessed Title: ' + this.guessed_title);
       return;
     }
-    letter_indexes_found = this.findLetterIndexes(letter,this.movie_title);
+
+    var letter_indexes_found = this.findLetterIndexes(letter,this.movie_title);
     if (letter_indexes_found.length != 0)
     {
       this.revealLetter(letter,letter_indexes_found);
-      console.log('Letter in movie title!');
     }
     else
     {
-      console.log('Letter not in movie title!');
       this.lives -= 1;
-      console.log('Remaining lives: ' + this.lives);
     }
 
     this.checkGameEnd();
@@ -59,13 +55,12 @@ var hangman = {
   {
     if (this.isMovieTitleComplete(this.guessed_title))
     {
-      window.removeEventListener('keyup',handler.keyUpListener);
+      window.removeEventListener('keyup',handler.makeGuess);
       return WIN;
     }
-
-    if (this.lives == 0)
+    else if (this.lives == 0)
     {
-      window.removeEventListener('keyup',handler.keyUpListener);
+      window.removeEventListener('keyup',handler.makeGuess);
       return LOSE;
     }
 
@@ -79,7 +74,7 @@ var hangman = {
 }.generateMovieTitle();
 
 var handler = {
-  keyUpListener: function(event) {
+  makeGuess: function(event) {
     var key_pressed = event.key.toUpperCase();
     if (key_pressed >= 'A' && key_pressed <= 'Z' && key_pressed.length === 1)
     {
@@ -119,4 +114,4 @@ var view = {
   }
 };
 
-window.addEventListener('keyup',handler.keyUpListener);
+window.addEventListener('keyup',handler.makeGuess);
