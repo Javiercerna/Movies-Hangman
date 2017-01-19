@@ -70,6 +70,11 @@ var hangman = {
     this.movie_title = 'Spectral';
     this.guessed_title = Array(this.movie_title.length+1).join('_');
     return this;
+  },
+  resetHangman: function() {
+    this.lives = 12;
+    this.used_letters = [];
+    return this.generateMovieTitle();
   }
 }.generateMovieTitle();
 
@@ -83,6 +88,11 @@ var handler = {
       view.showUsedLetters();
       view.showGameEnd();
     }
+  },
+  resetHangman: function() {
+    hangman = hangman.resetHangman();
+    window.addEventListener('keyup',handler.makeGuess);
+    view.resetHangman();
   }
 };
 
@@ -112,6 +122,15 @@ var view = {
       game_end_title.textContent = 'You lost! :(';
       game_end_title.style = 'color:red';
       container.appendChild(game_end_title);
+    }
+  },
+  resetHangman: function() {
+    this.updateGuessedTitle();
+    this.showUsedLetters();
+    var game_end_title = document.querySelector('h1');
+    if (game_end_title != null)
+    {
+      game_end_title.parentNode.removeChild(game_end_title);
     }
   }
 };

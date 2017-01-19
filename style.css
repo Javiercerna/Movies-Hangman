@@ -3,6 +3,13 @@ body {
   font-family: 'Indie Flower', cursive;
 }
 
+button {
+  color: #FFF;
+  font-size: 20px;
+  background: #3498DB;
+  padding: 10px 20px 10px 20px;
+}
+
 .container {
   padding: 50px;
   text-align: center;
